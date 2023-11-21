@@ -23,3 +23,18 @@ if file_zip is not None:
 
     st.write("Ejemplo del archivo")
     st.write(df.head())
+
+    @st.experimental_memo
+    def convert_df(df_):
+       return df_.to_csv(index=False).encode('utf-8')
+    
+    
+    csv = convert_df(df)
+    
+    st.download_button(
+       "Press to Download",
+       csv,
+       "file.csv",
+       "text/csv",
+       key='download-csv'
+    )
